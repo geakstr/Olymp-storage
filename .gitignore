@@ -8,3 +8,14 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+
+#java specific
+*.class
+
+## generic files to ignore
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
