@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+/Users/geakstr/Dropbox/Development/ACM/storage/codeforces.ru/gym/170/.metadata/.plugins/org.eclipse.jdt.core
+3407284782.index
+1377721236.index
+2960522080.index

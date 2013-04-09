@@ -1,0 +1,22 @@
+{
+  "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/R/src": {
+    "location": "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/R/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/R/src\u0027. Skipped."
+  },
+  "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar",
+    "status": "RESOLVED"
+  },
+  "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/P/src": {
+    "location": "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/P/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/P/src\u0027. Skipped."
+  },
+  "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/I/src": {
+    "location": "/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/I/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Users/geakstr/Dropbox/Development/ACM/storage/opencup/24.02.2013/I/src\u0027. Skipped."
+  }
+}

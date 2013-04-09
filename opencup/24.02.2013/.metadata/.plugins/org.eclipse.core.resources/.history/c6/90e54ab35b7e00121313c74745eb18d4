@@ -1,0 +1,110 @@
+import java.util.*;
+import java.io.*;
+
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	class Pair {
+		String s;
+		boolean check;
+
+		public Pair(String s, boolean check) {
+			this.s = s;
+			this.check = check;
+		}
+	}
+
+	void solve() throws IOException {
+		String s = ns();
+		int n = ni(), l = 0, ansCnt = Integer.MAX_VALUE;
+		List<Pair> m = new ArrayList<Pair>();
+
+		for (int i = 0; i < n; i++) {
+			String o = ns();
+			Pair pair = new Pair(o, false);
+			m.add(pair);
+			l = o.length();
+		}
+
+		
+		for (int out = 0; out < s.length() - l; out++) {
+			String ans = s;
+			int tmpAns = 0;
+			int cnt = -1;
+			for (int i = out; i < ans.length() - l + 1; i++) {
+				String tmpS = ans.substring(i, i + l);
+				out.println("a : " + ans);
+				out.println("t : " + tmpS);
+
+				boolean check = false;
+				for (int k = 0; k < m.size(); k++) {
+					if (m.get(k).s.equals(tmpS) && !m.get(k).check) {
+						check = true;
+						Pair newPair = new Pair(tmpS, true);
+						m.set(k, newPair);
+						break;
+					}
+				}
+
+				if (check) {
+					tmpAns++;
+					if (ans.length() == l) {
+						ansCnt = Math.min(ansCnt, tmpAns);
+						break;
+					}
+					ans = ans.substring(0, i)
+							+ ans.substring(i + l, ans.length());
+					i = -1;
+				} else {
+					for (int k = 0; k < m.size(); k++) {
+						Pair newPair = new Pair(m.get(k).s, false);
+						m.set(k, newPair);
+					}
+					ans = s;
+					cnt++;
+					i = cnt;
+					ansCnt = 0;
+				}
+			}
+		}
+
+		out.println(ansCnt);
+
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	Integer ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	Double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	Long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+}

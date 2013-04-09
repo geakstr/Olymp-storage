@@ -1,0 +1,157 @@
+import java.util.*;
+import java.io.*;
+
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	static class Treap {
+		Treap l, r;
+		int key, value, count;
+
+		Treap(int key, int value) {
+			this.key = key;
+			this.value = value;
+			count = 1;
+		}
+
+	}
+
+	public Treap merge(Treap l, Treap r) {
+		if (l == null) {
+			return r;
+		} else if (r == null) {
+			return l;
+		} else if (l.key > r.key) {
+			l.r = merge(l.r, r);
+			return l;
+		} else {
+			r.l = merge(l, r.l);
+			return r;
+		}
+	}
+
+	public Treap[] split(Treap t, int key) {
+		if (t == null) {
+			return new Treap[] { null, null };
+		}
+
+		if (t.value >= key) {
+			Treap[] res = split(t.l, key);
+			t.l = res[1];
+			res[1] = t;
+			return res;
+		} else {
+			Treap[] res = split(t.r, key);
+			t.r = res[0];
+			res[0] = t;
+			return res;
+		}
+	}
+
+	public Treap getNode(Treap t, int value) {
+		Treap pointer = t;
+
+		while (pointer != null && pointer.value != value) {
+			if (pointer.value > value) {
+				pointer = pointer.l;
+			} else if (pointer.value < value) {
+				pointer = pointer.r;
+			}
+		}
+
+		return pointer;
+	}
+
+	public Treap add(Treap t, int x, int num) {
+		Treap already = getNode(t, num);
+
+		if (already != null) {
+			++already.count;
+
+			return t;
+		} else {
+
+			Treap newNode = new Treap(x, num);
+
+			return insert(t, newNode);
+		}
+	}
+
+	public Treap insert(Treap cur, Treap add) {
+		if (cur == null) {
+			return add;
+		} else if (add.key > cur.key) {
+			Treap[] pair = split(cur, add.value);
+			add.l = pair[0];
+			add.r = pair[1];
+			return add;
+		} else if (add.value < cur.value) {
+			cur.l = insert(cur.l, add);
+			return cur;
+		} else {
+			cur.r = insert(cur.r, add);
+			return cur;
+		}
+	}
+	Treap t;
+	int h = 0;
+	void solve() throws IOException {
+		int n = ni();
+		int x[] = new int[n], y[] = new int[n];
+
+		for (int i = 0; i < n; i++) {
+			x[i] = ni();
+		}
+		for (int i = 0; i < n; i++) {
+			y[i] = ni();
+		}
+
+		t = null;
+		for (int i = 0; i < n; i++) {
+			t = add(t, x[i], y[i]);
+		}
+	}
+	
+	
+	void dfs(int v, int p) {
+		if(getNode(t, v) != null) {
+			
+		}
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	Integer ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	Double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	Long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+}

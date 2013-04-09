@@ -1,0 +1,79 @@
+import java.io.*;
+import java.util.*;
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	void add(int[] tree, int idx, int add) {
+		for (; idx < tree.length; idx += idx & -idx)
+			tree[idx] += add;
+	}
+
+	int sum(int[] tree, int idx) {
+		int ret = 0;
+		for (; idx > 0; idx -= idx & -idx)
+			ret += tree[idx];
+		return ret;
+	}
+
+	int sum(int tree[], int l, int r) {
+		return sum(tree, r) - sum(tree, l - 1);
+	}
+
+	void solve() throws IOException {
+		int n = ni(), t = ni();
+		ArrayList<Integer> a = new ArrayList<Integer>();
+
+		int ans = 0, idx = 0;
+		for (int i = 1, sum = 0; i <= n; i++) {
+			int num = ni();
+			a.add(num);
+			if (sum + num <= t) {
+				sum += num;
+				ans++;
+			} else {
+				Arrays.sort(a, Collections.reverseOrder());
+				sum -= ans.get(i - idx);
+				sum += num;
+				idx++;
+			}
+		}
+
+		out.println(ans);
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(System.out);
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens())
+			st = new StringTokenizer(in.readLine());
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+
+}

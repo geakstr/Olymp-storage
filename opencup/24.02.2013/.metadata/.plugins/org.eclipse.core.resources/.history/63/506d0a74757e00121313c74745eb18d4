@@ -1,0 +1,108 @@
+import java.util.*;
+import java.io.*;
+
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	class State {
+		int len, link;
+		Map<Character, Integer> next;
+
+		public State(int len, int link, Map<Character, Integer> next) {
+			this.len = len;
+			this.link = link;
+			this.next = next;
+		}
+	};
+
+	int MAXLEN = 100000;
+	State state[] = new State[MAXLEN * 2];
+	int sz = 0, last = 0;
+
+	void sa_extend(char c) {
+		int cur = sz++;
+		state[cur].len = state[last].len + 1;
+		int p;
+		for (p = last; p != -1 && !state[p].next.containsKey(c); p = state[p].link)
+			state[p].next.get(c).equals(cur);
+		if (p == -1)
+			state[cur].link = 0;
+		else {
+			int q = state[p].next.get(c);
+			if (state[p].len + 1 == state[q].len)
+				state[cur].link = q;
+			else {
+				int clone = sz++;
+				state[clone].len = state[p].len + 1;
+				state[clone].next = state[q].next;
+				state[clone].link = state[q].link;
+				for (; p != -1 && state[p].next.get(c) == q; p = state[p].link)
+					state[p].next.put(c, clone);
+				state[q].link = state[cur].link = clone;
+			}
+		}
+		last = cur;
+	}
+
+	void sa_init() {
+		sz = last = 0;
+		state[0].len = 0;
+		state[0].link = -1;
+		++sz;
+	}
+
+	void solve() throws IOException {
+		String s = ns();
+		for (int i = 0; i < s.length(); i++) {
+			state[i] = new State(0, 0, new Map<Character, Integer>);
+		}
+		sa_init();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			sa_extend(c);
+
+			for (int j = 0; j < state.length; j++) {
+				out.println(state[j].len + " " + state[j].link);
+				for (Character next : state[j].next.keySet()) {
+					out.print(next + " " + state[j].next.get(next));
+				}
+			}
+		}
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	Integer ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	Double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	Long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+}

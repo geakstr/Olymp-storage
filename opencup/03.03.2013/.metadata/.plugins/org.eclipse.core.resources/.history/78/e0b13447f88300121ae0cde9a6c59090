@@ -1,0 +1,32 @@
+public class Test {
+
+	static int[] eat(int[] l, int start, int m) {
+		int[] ret = new int[l.length + 1];
+
+		int idx = 1;
+		for (int i = 0; i < start; i++) {
+			ret[idx++] = l[i];
+		}
+		start += m;
+		for (int i = start; i < l.length; i += m) {
+			ret[idx++] = l[i];
+		}
+
+		return ret;
+	}
+
+	public static void main(String[] args) {
+		int l[] = new int[123460];
+		for (int i = 1; i < 123456; i++) {
+			l[i] = i;
+		}
+
+		while (l.length > 1) {
+			l = eat(l, 2, 2);
+			l = eat(l, 1, 2);
+			l = eat(l, 3, 3);
+		}
+
+		System.out.println(l.length);
+	}
+}

@@ -1,0 +1,60 @@
+import java.util.*;
+import java.io.*;
+import java.math.BigInteger;
+
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	void sieve() throws IOException {
+		int n;
+		boolean[] prime = new boolean[n + 1];
+		Arrays.fill(prime, true);
+		prime[0] = prime[1] = false;
+		for (int i=2; i<=n; ++i)
+			if (prime[i])
+				if (i * 1ll * i <= n)
+					for (int j=i*i; j<=n; j+=i)
+						prime[j] = false;
+	}
+
+	void solve() throws IOException {
+		BigInteger n = new BigInteger(ns());
+
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(System.out);
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	Integer ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	Double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	Long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+}

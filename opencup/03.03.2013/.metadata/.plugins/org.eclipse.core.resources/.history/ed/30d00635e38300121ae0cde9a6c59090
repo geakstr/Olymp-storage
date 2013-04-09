@@ -1,0 +1,115 @@
+import java.io.*;
+import java.util.*;
+
+import static java.lang.Math.*;
+
+public class Main {
+	BufferedReader in;
+	PrintWriter out;
+	StringTokenizer st;
+
+	int ans = 0, a, b, A, B;
+	Set<Integer> sums;
+
+	void solve() throws IOException {
+		a = ni();
+		b = ni();
+		A = ni();
+		B = ni();
+
+		if (a == b && a == A && a == B && a == 0) {
+			out.println("1");
+			return;
+		}
+
+		if (a == b && a == 0 && a != A && a != B) {
+			out.println("0");
+			return;
+		}
+
+		sums = new HashSet<Integer>();
+		int x = 0;
+		while (true) {
+			if (x >= A && x <= B && !sums.contains(x)) {
+				ans++;
+				sums.add(x);
+			} else if (x > B) {
+				break;
+			}
+			x += a;
+		}
+
+		x = 0;
+		while (true) {
+			if (x >= A && x <= B && !sums.contains(x)) {
+				ans++;
+				sums.add(x);
+			} else if (x > B) {
+				break;
+			}
+			x += b;
+		}
+		x = 0;
+		int cnt = 1;
+
+		int lastSum = 0;
+		while (true) {
+			x = 0;
+			boolean check = false;
+			if (lastSum >= A && lastSum <= B && !sums.contains(lastSum)) {
+				ans++;
+				sums.add(lastSum);
+			}
+			lastSum += a;
+
+			x = lastSum;
+			while (x <= B) {
+				check = true;
+				if (x >= A && x <= B && !sums.contains(x)) {
+					ans++;
+					sums.add(x);
+				}
+				x += b;
+			}
+			if (!check) {
+				break;
+			} else {
+				cnt++;
+			}
+		}
+
+		out.println(ans);
+	}
+
+	public Main() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens())
+			st = new StringTokenizer(in.readLine());
+		return st.nextToken();
+	}
+
+	Integer ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	Double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	Long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Main();
+	}
+
+}
