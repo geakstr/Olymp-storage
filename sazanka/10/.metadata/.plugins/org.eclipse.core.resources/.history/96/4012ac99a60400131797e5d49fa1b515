@@ -1,0 +1,78 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	int gcd(int a, int b) {
+		if (a == 0) {
+			x = 0;
+			y = 1;
+			return b;
+		}
+		int x1 = 0, y1 = 0;
+		int d = gcd(b % a, a);
+		x = y1 - (b / a) * x1;
+		y = x1;
+		return d;
+	}
+
+	int g;
+
+	boolean find(int a, int b, int c) {
+		g = gcd(Math.abs(a), Math.abs(b));
+		if (c % g != 0)
+			return false;
+		x *= c / g;
+		y *= c / g;
+		if (a < 0)
+			x *= -1;
+		if (b < 0)
+			y *= -1;
+		return true;
+	}
+
+	int x, y;
+
+	void solve() throws IOException {
+		int a = ni(), b = ni(), p = ni();
+
+		int sum = 0;
+
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("in"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

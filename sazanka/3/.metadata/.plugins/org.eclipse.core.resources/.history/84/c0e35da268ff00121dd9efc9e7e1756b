@@ -1,0 +1,104 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	Map<Integer, String> m = new HashMap<Integer, String>();
+	Map<String, int[]> mp = new HashMap<String, int[]>();
+
+	int[] prefix(String s) {
+		int n = s.length();
+		int[] ret = new int[n];
+
+		for (int i = 1; i < n; i++) {
+			int j = ret[i - 1];
+			while (j > 0 && s.charAt(j) != s.charAt(i)) {
+				j = ret[j - 1];
+			}
+			if (s.charAt(j) == s.charAt(i)) {
+				j++;
+				ret[i] = j;
+			}
+		}
+
+		return ret;
+	}
+
+	void addGray(int k) {
+		if (k == 0) {
+			m.put(0, "");
+		}
+		if (k == 1) {
+			m.put(1, "a");
+		}
+
+		String ans = "a";
+		int c = 98;
+		for (int i = 1; i < k; i++) {
+			StringBuilder builder = new StringBuilder(ans);
+			builder.append(String.valueOf((char) c)).append(ans);
+			ans = builder.toString();
+			c++;
+		}
+		m.put(k, ans);
+
+		int parr[] = prefix(ans);
+		mp.put(ans, parr);
+	}
+
+	int getP(String s, int p) {
+		int parr[] = mp.get(s);
+		return parr[p];
+	}
+
+	void solve() throws IOException {
+
+		while (in.ready()) {
+			int k = ni();
+			int p = ni();
+
+			if (!m.containsKey(k)) {
+				addGray(k);
+			}
+
+			out.println(getP(m.get(k), p));
+		}
+
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		//in = new BufferedReader(new FileReader("tests"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

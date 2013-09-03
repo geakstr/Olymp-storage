@@ -1,0 +1,66 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	char[] a = "aaa$".toCharArray();
+	int n;
+
+	int inf = 1000000000;
+	int t[][];
+	int l[], r[], p[], s[];
+	int tv, tp, ts, la;
+
+	void ukadd(int c) {
+		suff:
+
+			while (true) {
+		if(r[tv] < tp) {
+			if(t[tv][c] == -1) {
+				t[tv][c] = ts; l[ts] = la; p[ts++] = tv; tv = s[tv]; tp = r[tv] + 1; break suff;
+			}
+		}
+			}
+	}
+
+	void solve() throws IOException {
+
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("in"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		// out = new PrintWriter("out");
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

@@ -1,0 +1,73 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	Map<String, Integer> m = new HashMap<String, Integer>();
+	int ans = 0;
+
+	int getAng(int ang) {
+		int newAng = ans + ang;
+
+		if (newAng >= 360) {
+			newAng = newAng - 360;
+		} else if (newAng < 0) {
+			newAng = 360 - Math.abs(newAng);
+		}
+
+		return newAng;
+	}
+
+	void solve() throws IOException {
+		int n = ni();
+
+		for (int i = 0; i < n; i++) {
+			String s = in.readLine();
+			if (s.equals("LEFT")) {
+				ans = getAng(-90);
+			} else if (s.equals("RIGHT")) {
+				ans = getAng(90);
+			} else if (s.equals("TURN AROUND")) {
+				ans = getAng(180);
+			}
+		}
+		
+		out.println(ans);
+
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

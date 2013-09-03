@@ -1,0 +1,158 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	class Pair {
+		String g;
+		String s;
+
+		Pair(String g, String s) {
+			this.g = g;
+			this.s = s;
+		}
+	}
+
+	ArrayList<ArrayList<Pair>> genSubsets(int n) {
+		n = (1 << n);
+		ArrayList<ArrayList<Pair>> ret = new ArrayList<ArrayList<Pair>>();
+		for (int i = 0; i < n; i++) {
+			int a = i, j = 1;
+			ArrayList<Pair> tmp = new ArrayList<Pair>();
+			while (a > 0) {
+				if (a % 2 == 1) {
+					tmp.add(this.a[j - 1]);
+				}
+				j++;
+				a /= 2;
+			}
+			ret.add(tmp);
+		}
+		return ret;
+	}
+
+	Pair[] a;
+	int m;
+
+	void solve() throws IOException {
+		int n = ni();
+		m = ni();
+		a = new Pair[n];
+
+		String[] g = new String[n];
+		for (int i = 0; i < n; i++)
+			g[i] = ns();
+		for (int i = 0; i < n; i++)
+			a[i] = new Pair(g[i], ns());
+		Arrays.sort(a, new Comparator<Pair>() {
+			@Override
+			public int compare(Pair a, Pair b) {
+				if (a.g.length() != b.g.length()) {
+					return b.g.length() - a.g.length();
+				}
+				return a.g.compareTo(b.g);
+			}
+		});
+
+		ArrayList<ArrayList<Pair>> subsets = genSubsets(n);
+
+		Collections.sort(subsets, new Comparator<ArrayList<Pair>>() {
+			@Override
+			public int compare(ArrayList<Pair> a, ArrayList<Pair> b) {
+				int songsA = 0;
+				int songsB = 0;
+
+				int asize = a.size();
+				int bsize = b.size();
+
+				int[] sA = new int[m];
+				for (int i = 0; i < asize; i++) {
+					String song = a.get(i).s;
+					for (int j = 0; j < song.length(); j++) {
+						if (song.charAt(j) == 'Y')
+							sA[j] = 1;
+					}
+				}
+				for (int i = 0; i < m; i++) {
+					if (sA[i] == 1)
+						songsA++;
+				}
+
+				int[] sB = new int[m];
+				for (int i = 0; i < bsize; i++) {
+					String song = b.get(i).s;
+					for (int j = 0; j < song.length(); j++) {
+						if (song.charAt(j) == 'Y')
+							sB[j] = 1;
+					}
+				}
+				for (int i = 0; i < m; i++) {
+					if (sB[i] == 1)
+						songsB++;
+				}
+
+				if (songsA != songsB) {
+					return songsB - songsA;
+				}
+
+				if (asize != bsize) {
+					return asize - bsize;
+				}
+
+				for (int i = 0; i < asize; i++) {
+					if (a.g.length() != b.g.length()) {
+						return b.g.length() - a.g.length();
+					}
+					return a.g.compareTo(b.g);
+				}
+
+				return 0;
+			}
+		});
+
+		for (int i = 0; i < subsets.size(); i++) {
+			for (int j = 0; j < subsets.get(i).size(); j++) {
+				out.println(subsets.get(i).get(j).g + " "
+						+ subsets.get(i).get(j).s);
+			}
+			out.println();
+		}
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("tests"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		// out = new PrintWriter("out");
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

@@ -1,0 +1,109 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	Set<Integer> set = new HashSet<Integer>();
+
+	boolean check(int num) {
+		boolean ret = true;
+		String s = String.valueOf(num);
+		for (int i = 0; i < s.length(); i++) {
+			if (!set.contains(s.charAt(i) - 48))
+				ret = false;
+		}
+		return ret;
+	}
+
+	int first(String n) {
+
+		int num = Integer.valueOf(n);
+
+		int cnt = 0;
+
+		int ret = -1;
+		while (true) {
+			if (check(num - cnt)) {
+				ret = num - cnt;
+				break;
+			}
+			if (check(num + cnt)) {
+				ret = num + cnt;
+				break;
+			}
+			cnt++;
+		}
+
+		return ret;
+	}
+
+	int third(int one, int two) {
+		return Math.abs(one - two);
+	}
+
+	int second(String n) {
+		return Math.abs(100 - Integer.valueOf(n));
+	}
+
+	void solve() throws IOException {
+		String n = ns();
+		int m = ni();
+
+		for (int i = 0; i < 10; i++) {
+			set.add(i);
+		}
+		for (int i = 0; i < m; i++) {
+			set.remove(ni());
+		}
+
+		int first = first(n);
+		out.println(first);
+		first = String.valueOf(first).length()
+				+ (first - Math.abs(first - Integer.valueOf(n)));
+		int second = second(n);
+
+		int ans = 0;
+		if (first == -1) {
+			ans = second;
+		} else {
+			ans = Math.min(first, second);
+		}
+
+		out.println(first);
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

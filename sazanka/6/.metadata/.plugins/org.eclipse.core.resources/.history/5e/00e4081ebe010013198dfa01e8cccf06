@@ -1,0 +1,43 @@
+abacabac
+4
+
+aa
+4
+
+
+aaba
+4
+
+aaba
+
+
+int idx = 0;
+		for (int i = 0; i < n; i++) {
+			StringBuilder tmp1 = new StringBuilder();
+			tmp1.append(ns.substring(p[i]));
+			tmp1.append(ns.substring(0, p[i]));
+			String tmp1S = tmp1.toString();
+			out.println(tmp1S);
+			if (idx == k) {
+				out.println(tmp1S);
+				return;
+			}
+			idx++;
+			while (true) {
+				if (i >= n)
+					break;
+				StringBuilder tmp2 = new StringBuilder();
+				tmp2.append(ns.substring(p[i]));
+				tmp2.append(ns.substring(0, p[i]));
+				String tmp2S = tmp2.toString();
+				if (tmp2S.equals(tmp1S)) {
+					i++;
+					continue;
+				} else {
+					break;
+				}
+			}
+
+		}
+
+		out.println("IMPOSSIBLE");

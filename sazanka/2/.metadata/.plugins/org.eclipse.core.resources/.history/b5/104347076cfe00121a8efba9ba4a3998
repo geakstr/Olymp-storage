@@ -1,0 +1,89 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	Map<String, Integer> m = new HashMap<String, Integer>();
+
+	void solve() throws IOException {
+		String txt = in.readLine();
+		String search = ns();
+		String type = ns();
+		int n = ni();
+
+		if (type.equals("N")) {
+			if (txt.indexOf(search, n) != -1) {
+				out.println(txt.indexOf(search, n));
+				return;
+			}
+		} else {
+
+			if (txt.trim().equals(search)) {
+				out.println(txt.indexOf(search, n));
+				return;
+			}
+
+			int idx = txt.indexOf(search + " ", n);
+			if (idx != -1) {
+				if (idx == 0) {
+					out.println(txt.indexOf(search + " ", n));
+					return;
+				}
+				if (txt.charAt(idx - 1) == ' ') {
+					out.println(txt.indexOf(search + " ", n));
+					return;
+				}
+			}
+			
+			txt += " ";
+			idx = txt.indexOf(" " + search + " ", n);
+			out.println(idx + search.length() + 1);
+			txt = txt.substring(0, txt.length() - 1);
+			out.println(txt.length());
+
+			
+			if (idx != -1) {
+				if (idx + search.length() + 1 == txt.length()) {
+					out.println(idx + 1);
+					return;
+				}
+			}
+		}
+		out.println("-1");
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

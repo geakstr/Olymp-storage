@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	void solve() throws IOException {
+		int n = ni();
+
+		long[] d = new long[n + 1];
+		Arrays.fill(d, 0);
+		d[0] = 1;
+		for (int i = 1; i <= n; i++) {
+			if (i % 2 == 0) {
+				for (int j = 1; j < i; j++) {
+					d[i] += d[j] * d[i - j];
+				}
+			}
+		}
+
+		out.println(d[n]);
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("tests"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

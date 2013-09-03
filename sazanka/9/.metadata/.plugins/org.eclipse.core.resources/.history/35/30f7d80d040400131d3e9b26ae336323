@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	String rev(String s) {
+		String ret = "";
+		for (int i = s.length() - 1; i >= 0; i--) {
+			ret += s.charAt(i);
+		}
+		return ret;
+	}
+
+	void solve() throws IOException {
+		String s = in.readLine();
+		Set<String> set = new HashSet<String>();
+		int ans = 0;
+		if (s.equals(rev(s))) {
+			ans++;
+		}
+
+		int n = s.length();
+		for (int i = 1; i < n; i++) {
+			String tmp = s.substring(i) + s.substring(0, i);
+			set.add(tmp);
+		}
+		for (String el : set) {
+			if (el.equals(rev(el)))
+				ans++;
+		}
+		out.println(ans);
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		// in = new BufferedReader(new InputStreamReader(System.in));
+		in = new BufferedReader(new FileReader("in"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		// out = new PrintWriter("out");
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

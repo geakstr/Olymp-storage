@@ -1,0 +1,6 @@
+INDEX VERSION 1.126+/home/geakstr/sazanka/2/.metadata/.plugins/org.eclipse.jdt.core
+3407284782.index
+1248519193.index
+734192432.index
+3430600247.index
+2960522080.index

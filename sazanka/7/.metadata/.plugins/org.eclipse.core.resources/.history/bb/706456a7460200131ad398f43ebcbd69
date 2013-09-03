@@ -1,0 +1,63 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	void solve() throws IOException {
+		int n = ni();
+
+		Map<String, Integer> m = new HashMap<String, Integer>();
+
+		int s = ni() * ni();
+		String color = ns();
+		for (int i = 1; i < n; i++) {
+			s = ni() * ni();
+			color = ns();
+			if (m.containsKey(color)) {
+				m.put(color, m.get(color) + s);
+			} else {
+				m.put(color, s);
+			}
+		}
+
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("tests"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		// out = new PrintWriter("out");
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

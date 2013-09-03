@@ -1,0 +1,90 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	int getWatt(int num) {
+		String s = String.valueOf(num);
+
+		if (s.length() == 1) {
+			int one = s.charAt(0) - 48;
+			return Integer.bitCount(one);
+		}
+
+		int one = s.charAt(0) - 48;
+		int two = s.charAt(1) - 48;
+
+		return Integer.bitCount(one) + Integer.bitCount(two);
+	}
+
+	void solve() throws IOException {
+		String strOne = ns();
+		String strTwo = ns();
+
+		String[] str1 = strOne.split(":");
+		String[] str2 = strTwo.split(":");
+
+		int h1 = Integer.valueOf(str1[0]);
+		int m1 = Integer.valueOf(str1[1]);
+		int s1 = Integer.valueOf(str1[2]);
+
+		int h2 = Integer.valueOf(str2[0]);
+		int m2 = Integer.valueOf(str2[1]);
+		int s2 = Integer.valueOf(str2[2]);
+
+		double ans = getWatt(h1) + getWatt(m1) + getWatt(s1);
+		if (!strOne.equals(strTwo))
+			do
+				if (s1 == 59) {
+					s1 = 0;
+					if (m1 == 59) {
+						m1 = 0;
+						if (h1 == 12)
+							h1 = 1;
+						else
+							h1++;
+					} else
+						m1++;
+				} else
+					s1++;
+			while (h1 != h2 || m1 != m2 || s1 != s2);
+			ans += getWatt(h1) + getWatt(m1) + getWatt(s1);
+
+		out.printf("%.10f", ans / 1000.0 / 3600.0);
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

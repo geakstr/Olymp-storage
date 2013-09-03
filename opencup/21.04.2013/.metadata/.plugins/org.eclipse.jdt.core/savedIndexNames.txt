@@ -1,0 +1,4 @@
+INDEX VERSION 1.126+/Users/geakstr/Dropbox/Development/ACM/Storage/opencup/21.04.2013/.metadata/.plugins/org.eclipse.jdt.core
+3318514204.index
+1556468646.index
+2960522080.index

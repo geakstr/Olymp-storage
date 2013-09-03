@@ -1,0 +1,103 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	char[] s;
+	int n;
+	int alph = 256;
+	int p[], cnt[], c[];
+	int cls;
+
+	void buildSuffixArray() {
+		p = new int[n];
+		cnt = new int[alph];
+		c = new int[n];
+
+		for (int i = 0; i < n; i++)
+			cnt[s[i]]++;
+		for (int i = 1; i < alph; i++)
+			cnt[i] += cnt[i - 1];
+		for (int i = 0; i < n; i++) {
+			p[cnt[s[i]] - 1] = i;
+			cnt[s[i]]--;
+		}
+
+		cls = 1;
+		c[p[0]] = 0;
+		for (int i = 1; i < n; i++) {
+			if (s[p[i]] != s[p[i - 1]])
+				cls++;
+			c[p[i]] = cls - 1;
+		}
+		out.print("c on stage 0:");
+		for (int i = 0; i < n; i++) {
+			out.print(" " + c[i]);
+		}
+		out.println();
+
+		for (int i = 0; i < n; i++) {
+			cnt[i] = 0;
+		}
+
+		for (int i = 0; i < n; i++) {
+			cnt[c[i]]++;
+		}
+		
+		for(int i = 1; i < cls; i++) {
+			cnt[i] += cnt[i-1];
+		}
+
+	}
+
+	void solve() throws IOException {
+		String ns = in.readLine();
+
+		s = ns.toCharArray();
+		n = s.length;
+
+		buildSuffixArray();
+
+		out.print("p :");
+		for (int i = 0; i < n; i++) {
+			out.print(" " + p[i]);
+		}
+		out.println();
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		// in = new BufferedReader(new FileReader("tests"));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}

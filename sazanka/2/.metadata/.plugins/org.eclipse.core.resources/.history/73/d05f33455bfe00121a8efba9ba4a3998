@@ -1,0 +1,71 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+	BufferedReader in;
+	StringTokenizer st;
+	PrintWriter out;
+
+	Set<String> set = new HashSet<String>();
+
+	boolean check(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			String l = s.substring(0, i);
+			String r = s.substring(i);
+
+			String tmp = r + l;
+			out.println(tmp);
+			if (set.contains(tmp)) {
+				return true;
+			}
+		}
+		set.add(s);
+		return false;
+	}
+
+	void solve() throws IOException {
+		int n = ni();
+		int ans = 0;
+
+		for (int i = 0; i < n; i++) {
+			String s = ns();
+
+			if (!check(s)) {
+				ans++;
+			}
+		}
+		out.println(ans);
+	}
+
+	Solution() throws IOException {
+		Locale.setDefault(Locale.US);
+		in = new BufferedReader(new InputStreamReader(System.in));
+		out = new PrintWriter(new OutputStreamWriter(System.out));
+		solve();
+		in.close();
+		out.close();
+	}
+
+	String ns() throws IOException {
+		while (st == null || !st.hasMoreTokens()) {
+			st = new StringTokenizer(in.readLine());
+		}
+		return st.nextToken();
+	}
+
+	int ni() throws IOException {
+		return Integer.valueOf(ns());
+	}
+
+	double nd() throws IOException {
+		return Double.valueOf(ns());
+	}
+
+	long nl() throws IOException {
+		return Long.valueOf(ns());
+	}
+
+	public static void main(String[] args) throws IOException {
+		new Solution();
+	}
+}
